@@ -32,6 +32,34 @@ module.exports = {
 		})
 	},
 
+	createAuthor2: (req, res) => {
+		Author.create(req.body)
+			.then(
+				data =>  {
+					if (data) {
+						res.json({ status: true, messages: {success: "Author created"}});
+						console.log("data = ",data);
+						
+					}
+				}
+			)
+				
+			.catch(
+				err => {
+					if (err) {
+						console.log("authors.js crA2 err. err = ",err);
+						let messages = {};
+						for (let key in err.errors) {
+							messages[key] = err.errors[key].message;
+							console.log("authors.js crA2 err. err.errors[key].message = ",err.errors[key].message);
+						}
+						res.json({ status: false, messages: messages })
+					}
+				}
+			)
+		
+	}
+
 	//updateAuthor
 	
 	

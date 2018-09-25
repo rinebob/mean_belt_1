@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col m-3 ">
+		<button (click)="deleteMovie(movie._id)" class="btn btn-danger btn-sm m-3">Delete Movie</button>
+		<button (click)="showMovies()" class="btn btn-primary btn-sm m-3">Show Movies</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col m-3 ">
+		<h4>Reviews for {{movie.title}}</h4>
+	</div>
+</div>
+
+<div class="row m-2">
+	<div class="col">
+		<table class="table table-striped">
+			<thead>
+				<th scope="col">Reviewer</th>
+      			<th scope="col">Stars</th>
+      			<th scope="col">Reviews</th>
+				
+			</thead>
+			<tbody>
+				<tr *ngFor="let review of reviews">
+					<td class="mr-4">{{review["name"]}}</td><td class="mr-2">{{review["rating"]}}</td><td class="mr-6">{{review["comment"]}}</td><td><button (click)="deleteReview(movie._id, review._id)" class="btn btn-primary btn-sm m-x-2">Delete</button>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,24 +1,79 @@
 <div class="col">
 	<div class="row">
-		<div class="col my-3">
-			<a (click)="goHome()" class="btn btn-primary btn-sm" >Home</a>
+		<div class="col">
+			<h5>Submit a movie and your review</h5>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col">
-			<h5>Add a new author:</h5>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<form (submit)="createAuthor()">
-				<!-- use the json pipe to see how newauthor changes in real time -->
-				<p> {{ author | json }} </p>
-				<div class="form-group row">
-					<label class="col-3" path="name">Name:</label>
-					<input type="text" name="author.name" [(ngModel)]="author.name" />
+			<form (submit)="createMovie()">
+				<!-- front end val - disables button until valid data entered -->
+				
+				<p> {{ messages | json }} </p>
+				<p> {{ movie | json }} </p>
+
+		<!-- front end val -->
+				<div *ngIf="!title.valid && (title.dirty || title.touched)">
+					<span class="text-danger" *ngIf="title.errors.required">Title is required</span>
+					<span class="text-danger" *ngIf="title.errors.minlength">Title must be greater than 2 characters</span>
 				</div>
-				<a (click)="goHome()" class="btn btn-primary btn-sm" >Cancel</a><input class="btn btn-primary btn-sm" type="submit" value="Submit" />
+
+		<!-- back end val - -->
+				<span class="text-danger" *ngIf="messages.title">{{ messages.title }}</span>
+				<span class="text-success" *ngIf="message">{{ message }}</span>
+				
+				<div class="form-group row">
+					<label class="col-3" path="title">Movie Title:</label>
+					<input type="text" required minlength="3" name="movie.title" #title="ngModel" [(ngModel)]="movie.title" />
+				</div>
+		<!-- front end val -->
+				<div *ngIf="!name.valid && (name.dirty || name.touched)">
+					<span class="text-danger" *ngIf="name.errors.required">Name is required</span>
+					<span class="text-danger" *ngIf="name.errors.minlength">Name must be greater than 2 characters</span>
+				</div>
+
+		<!-- back end val - -->
+				<span class="text-danger" *ngIf="messages.name">{{ messages.name }}</span>
+				<span class="text-success" *ngIf="message">{{ message }}</span>
+
+				<div class="form-group row">
+					<label class="col-3" path="name">Your name:</label>
+					<input type="text" required minlength="3" name="movie.name" #name="ngModel" [(ngModel)]="movie.name" />
+				</div>
+		<!-- back end val - -->
+				<span class="text-danger" *ngIf="messages.name">{{ messages.rating }}</span>
+				<span class="text-success" *ngIf="message">{{ message }}</span>
+
+
+				<div class="form-group col-6">
+					<label for="rating">Stars:</label>
+					<select class="form-control" id="rating" name="movie.rating" [(ngModel)]="movie.rating">
+						<option value="1">1 star</option>
+						<option value="2">2 stars</option>
+						<option value="3">3 stars</option>
+						<option value="4">4 stars</option>
+						<option value="5">5 stars</option>
+					</select>
+				</div>
+		<!-- front end val -->
+				<div *ngIf="!initReview.valid && (initReview.dirty || initReview.touched)">
+					<span class="text-danger" *ngIf="initReview.errors.required">Review is required</span>
+					<span class="text-danger" *ngIf="initReview.errors.minlength">Review must be greater than 2 characters</span>
+				</div>
+		<!-- back end val - -->
+				<span class="text-danger" *ngIf="messages.name">{{ messages.initReview}}</span>
+				<span class="text-success" *ngIf="message">{{ message }}</span>
+
+				<div class="form-group row">
+					<label class="col-3">Your review:</label>
+					<!-- <input type="text" name="movie.initReview"[(ngModel)]="movie.initReview"/> -->
+					<input type="text" required minlength="3" name="movie.initReview" #initReview="ngModel" [(ngModel)]="movie.initReview" />
+				</div>
+		<!-- front end val - button disabled until fully valid data entered -->
+				<input [disabled]="!title.valid" class="btn btn-primary btn-sm" type="submit" value="Submit"/>
+				<a (click)="triggerEvent($event)" class="btn btn-primary btn-sm" >Cancel</a>
+				<a (click)="triggerEvent($event)" class="btn btn-primary btn-sm" >Invoke</a>
+				
 			</form>
 		</div>
 	</div>

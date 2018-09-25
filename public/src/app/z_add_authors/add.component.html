@@ -1,0 +1,62 @@
+<div class="col">
+	<div class="row">
+		<div class="col my-3">
+			<a (click)="goHome()" class="btn btn-primary btn-sm" >Home</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<h5>Add a new author:</h5>
+		</div>
+	</div>
+	<!-- <div class="row">
+		<div class="col">
+			<form (submit)="createAuthor()">
+				use the json pipe to see how newauthor changes in real time
+				<p> {{ author | json }} </p>
+				<div class="form-group row">
+					<label class="col-3" path="name">Name:</label>
+					<input type="text" name="author.name" [(ngModel)]="author.name" />
+				</div>
+				<a (click)="goHome()" class="btn btn-primary btn-sm" >Cancel</a>
+				<input class="btn btn-primary btn-sm" type="submit" value="Submit" />
+				
+			</form>
+		</div>
+	</div> -->
+
+	<!-- from Med - front and back end validation -->
+
+
+	<div class="row">
+		<div class="col">
+			<form (submit)="createAuthor2()">
+
+				<!-- front end val - disables button until valid data entered
+				back end val - after user clicks button will display success message or errors if any -->
+
+				
+				<div *ngIf="!name.valid && (name.dirty || name.touched)">
+					<span class="text-danger" *ngIf="name.errors.required">Name is required</span>
+					<span class="text-danger" *ngIf="name.errors.minlength">Name must be greater than 2 characters</span>
+				</div>
+
+				<span class="text-danger" *ngIf="messages.name">{{ messages.name }}</span>
+				<span class="text-success" *ngIf="message">{{ message }}</span>
+				<!-- <p> {{ messages | json }} </p> -->
+				<!-- use the json pipe to see how newauthor changes in real time -->
+				<!-- <p> {{ author | json }} </p> -->
+				<div class="form-group row">
+					<label class="col-3" path="name">Name:</label>
+					<input type="text" required minlength="2" name="author.name" #name="ngModel" [(ngModel)]="author.name" />
+				</div>
+				<a (click)="goHome()" class="btn btn-primary btn-sm" >Cancel</a>
+				<!-- <input class="btn btn-primary btn-sm" type="submit" value="Submit" /> -->
+				
+				
+				
+				<input [disabled]="!name.valid" class="btn btn-primary btn-sm" type="submit" value="Submit"/>
+			</form>
+		</div>
+	</div>
+</div>

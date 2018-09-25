@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 var path = require('path');
 
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/ang_authors');
 require('./server/models/author.js')
 require('./server/config/routes.js')(app)

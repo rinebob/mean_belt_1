@@ -8,24 +8,16 @@ import { NgForm } from '@angular/forms'
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	title = 'Squishy Tomatoes';
-	movie: any;
-	movies = [];
-	selectedMovie: any;
-	viewMovie = true;
-	review: any;
-	reviews = [];
-	selectedReview: any;
-	viewReview = true;
+	title = 'Favorite Authors';
+	author: any;
+	authors = [];
+	selectedAuthor: any;
+	viewAuthor = true;
 	messages: any;
 
 	constructor(private _httpService: HttpService){}
 
 	ngOnInit() {
-		
-
-		}
-
 		
 	}
 	

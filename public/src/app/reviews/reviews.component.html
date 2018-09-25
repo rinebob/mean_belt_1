@@ -1,0 +1,73 @@
+
+
+<div class="col">
+	
+	<div class="row">
+		<div class="col">
+			<h5 *ngIf="movie">Add a review for {{movie.title}}</h5>
+		</div>
+	</div>
+
+
+	<!-- from Med - front and back end validation -->
+
+
+	<div class="row">
+		<div class="col">
+			<form (submit)="createReview()">
+
+				<!-- front end val - disables button until valid data entered
+				back end val - after user clicks button will display success message or errors if any -->
+
+				<p> {{ revMessages | json }} </p>
+				<p> {{ review | json }} </p>
+				
+				<div *ngIf="!name.valid && (name.dirty || name.touched)">
+					<span class="text-danger" *ngIf="name.errors.required">name is required</span>
+					<span class="text-danger" *ngIf="name.errors.minlength">name must be greater than 2 characters</span>
+				</div>
+
+				<span class="text-danger" *ngIf="revMessages.name">{{ revMessages.name }}</span>
+				<span class="text-success" *ngIf="revMessage">{{ revMessage }}</span>
+
+				<div class="form-group row">
+					<label class="col-3" path="name">Your name:</label>
+					<!-- <input type="text" name="review.name"  [(ngModel)]="review.name" /> -->
+					<input type="text" required minlength="3" name="review.name" #name="ngModel" [(ngModel)]="review.name" />
+				</div>
+
+				<span class="text-danger" *ngIf="revMessages.rating">{{ revMessages.rating }}</span>
+				<span class="text-success" *ngIf="message">{{ revMessage }}</span>
+
+				
+					<div class="form-group col-6">
+						<label for="rating">Stars:</label>
+						<select class="form-control" id="rating" name="review.rating" [(ngModel)]="review.rating">
+							<option value="1">1 star</option>
+							<option value="2">2 stars</option>
+							<option value="3">3 stars</option>
+							<option value="4">4 stars</option>
+							<option value="5">5 stars</option>
+						</select>
+					</div>
+
+					<div *ngIf="!comment.valid && (comment.dirty || comment.touched)">
+						<span class="text-danger" *ngIf="comment.errors.required">comment is required</span>
+						<span class="text-danger" *ngIf="comment.errors.minlength">comment must be greater than 2 characters</span>
+					</div>
+						
+					<span class="text-danger" *ngIf="revMessages.comment">{{ revMessages.comment }}</span>
+					<span class="text-success" *ngIf="revMessage">{{ revMessage }}</span>
+
+					<div class="form-group row">
+						<label class="col-3">Your review:</label>
+						<input type="text" required minlength="3" name="review.comment" #comment="ngModel" [(ngModel)]="review.comment"/>
+					</div>
+
+					<!-- <input class="btn btn-primary btn-sm" type="submit" value="Submit" /> -->
+					<input [disabled]="!comment.valid" class="btn btn-primary btn-sm" type="submit" value="Submit"/>
+					<a (click)="showReviewsPage(movie._id)" class="btn btn-primary btn-sm" >Cancel</a>
+			</form>
+		</div>
+	</div>
+</div>
